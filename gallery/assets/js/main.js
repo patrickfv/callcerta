@@ -237,8 +237,9 @@
 			});
 
 		// Poptrox.
-			$main.poptrox({
-				baseZIndex: 20000,
+		/**
+		 $main.poptrox({
+			baseZIndex: 20000,
 				caption: function($a) {
 
 					var s = '';
@@ -250,6 +251,7 @@
 					return s;
 
 				},
+				usePopupEasyClose: false,
 				fadeSpeed: 300,
 				onPopupClose: function() { $body.removeClass('modal-active'); },
 				onPopupOpen: function() { $body.addClass('modal-active'); },
@@ -268,14 +270,15 @@
 				usePopupNav: true,
 				windowMargin: 50
 			});
-
+			
 			// Hack: Set margins to 0 when 'xsmall' activates.
-				breakpoints.on('<=xsmall', function() {
-					$main[0]._poptrox.windowMargin = 0;
-				});
-
-				breakpoints.on('>xsmall', function() {
-					$main[0]._poptrox.windowMargin = 50;
-				});
+			breakpoints.on('<=xsmall', function() {
+				$main[0]._poptrox.windowMargin = 0;
+			});
+			
+			breakpoints.on('>xsmall', function() {
+				$main[0]._poptrox.windowMargin = 50;
+			});
+		*/
 
 })(jQuery);
