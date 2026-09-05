@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<!--
+	Multiverse by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html lang="pt">
+<head>
+    <title>Mapa {{ map.name }}</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="/static/assets/multiverse/css/main.css" />
+    <noscript><link rel="stylesheet" href="/static/assets/multiverse/css/noscript.css" /></noscript>
+
+        <style>:root {
+            --bs-dark: #2E303E;
+            }
+
+            .poptrox-popup {
+            height: 450px;
+            width: 450px;
+            overflow: hidden;
+            border-radius: 16px;
+            }
+
+            .poptrox-popup img {
+            object-fit: cover;
+            transition: transform 0.8s;
+            height: 100%;
+            height: 100%;
+            }
+        </style>
+</head>
+<body class="is-preload">
+
+    <!-- Wrapper -->
+        <div id="wrapper">
+
+            <!-- Header -->
+                <header id="header">
+                    <h1><strong>{{ map.name }}</strong></h1>
+                    <nav>
+                        <ul>
+                            <li><a href="/" class="icon solid fa-info-circle">Call Certa</a></li>
+                        </ul>
+                    </nav>
+                </header>
+
+            <!-- Main -->
+            <div id="main">
+             {% for floor in map.floors %}
+                <article class="thumb">
+                    <a href={{ url_for('static', filename=floor.path) }} class="image">
+                        <img src={{ url_for('static', filename=floor.path) }} alt="" /></a>
+                    <h2></h2>
+                </article>
+            {% endfor %}
+            </div>
+        </div>
+    <!-- Scripts -->
+        <script src="/static/assets/multiverse/js/jquery.min.js"></script>
+        <script src="/static/assets/multiverse/js/jquery.poptrox.min.js"></script>
+        <script src="/static/assets/multiverse/js/browser.min.js"></script>
+        <script src="/static/assets/multiverse/js/breakpoints.min.js"></script>
+        <script src="/static/assets/multiverse/js/util.js"></script>
+        <script src="/static/assets/multiverse/js/main.js"></script>
+
+</body>
+    <script>
+        const imgWrapper = document.getElementsByClassName('poptrox-popup');
+        function onMoveMouse(e) {
+            const box = e.currentTarget;
+            const imgTag = box.querySelector('img');
+            let elementX = 0;
+            let elementY = 0;
+            function rule3(a, b, c) { return (b * c) / a; }
+
+            if (box) {
+                const rect = box.getBoundingClientRect();
+
+                const elementWidth = rect.width;
+                const elementHeight = rect.height;
+
+                const xaxis0 = elementWidth / 2;
+                const yaxis0 = elementHeight / 2;
+
+                let positionX = e.offsetX;
+                let positionY = e.offsetY;
+
+                elementX = (rule3(xaxis0, 100, positionX) - 100);
+                elementY = (rule3(yaxis0, 100, positionY) - 100) * -1;
+
+                imgTag.style.transform = `scale(1.8) translate(${elementX* -1 / 3 }%, ${elementY * 1 / 3}%)`
+            }
+
+        }
+
+        for (const el of Array.from(imgWrapper)) {
+            
+            el.addEventListener('dblclick', function(e) {
+                onMoveMouse(e);
+                el.addEventListener('mousemove', onMoveMouse);
+            });
+
+            function resetZoomListener(e) { 
+                e.currentTarget.querySelector('img').style.transform = `scale(1.0)  translate(${0}%, ${0}%)`; 
+                el.removeEventListener('mousemove', onMoveMouse); 
+            }
+
+            el.addEventListener('click', resetZoomListener);
+            el.addEventListener('mouseleave', resetZoomListener);
+        }
+    </script>
+
+</html>
