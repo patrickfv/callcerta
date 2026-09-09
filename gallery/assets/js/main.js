@@ -237,7 +237,6 @@
 			});
 
 		// Poptrox.
-		/**
 		 $main.poptrox({
 			baseZIndex: 20000,
 				caption: function($a) {
@@ -279,6 +278,49 @@
 			breakpoints.on('>xsmall', function() {
 				$main[0]._poptrox.windowMargin = 50;
 			});
-		*/
+
+		const imgWrapper = document.getElementsByClassName('poptrox-popup');
+        function onMoveMouse(e) {
+            const box = e.currentTarget;
+            const imgTag = box.querySelector('img');
+            let elementX = 0;
+            let elementY = 0;
+            function rule3(a, b, c) { return (b * c) / a; }
+
+            if (box) {
+                const rect = box.getBoundingClientRect();
+
+                const elementWidth = rect.width;
+                const elementHeight = rect.height;
+
+                const xaxis0 = elementWidth / 2;
+                const yaxis0 = elementHeight / 2;
+
+                let positionX = e.offsetX;
+                let positionY = e.offsetY;
+
+                elementX = (rule3(xaxis0, 100, positionX) - 100);
+                elementY = (rule3(yaxis0, 100, positionY) - 100) * -1;
+
+                imgTag.style.transform = `scale(1.8) translate(${elementX* -1 / 3 }%, ${elementY * 1 / 3}%)`
+            }
+
+        }
+
+        for (const el of Array.from(imgWrapper)) {
+            
+            el.addEventListener('dblclick', function(e) {
+                onMoveMouse(e);
+                el.addEventListener('mousemove', onMoveMouse);
+            });
+
+            function resetZoomListener(e) { 
+                e.currentTarget.querySelector('img').style.transform = `scale(1.0)  translate(${0}%, ${0}%)`; 
+                el.removeEventListener('mousemove', onMoveMouse); 
+            }
+
+            el.addEventListener('click', resetZoomListener);
+            el.addEventListener('mouseleave', resetZoomListener);
+        }
 
 })(jQuery);

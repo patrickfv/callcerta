@@ -1,6 +1,20 @@
 @import url(fontawesome-all.min.css);
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300italic,400,400italic");
 
+.poptrox-popup {
+	height: 450px;
+	width: 450px;
+	overflow: hidden;
+	border-radius: 16px;
+}
+
+.poptrox-popup img {
+	object-fit: cover;
+	transition: transform 0.8s;
+	height: 100%;
+	height: 100%;
+}
+
 /*
 	Multiverse by HTML5 UP
 	html5up.net | @ajlkn
