@@ -1191,7 +1191,17 @@ input, select, textarea {
 		background: rgba(31, 34, 36, 0.925);
 		box-shadow: 0 1em 3em 0.5em rgba(0, 0, 0, 0.25);
 		cursor: default;
+
+		-webkit-tap-highlight-color: transparent;
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
 	}
+
+	.poptrox-popup:focus {outline: none !important;}
 
 		.poptrox-popup:before {
 			-moz-transition: opacity 0.2s ease-in-out;
